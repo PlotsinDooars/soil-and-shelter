@@ -31,7 +31,7 @@
     <h1 class="text-xl md:text-2xl font-bold tracking-wide">MD ANWAR HOSSAIN</h1>
   </header>
 
-  <!-- Main View Router Container -->
+  <!-- Main View Container -->
   <main id="app-view">
 
     <!-- DASHBOARD VIEW -->
@@ -125,7 +125,7 @@
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-gray-200 border-b-2 border-black">
-              <th class="p-2">ID</th><th class="p-2">Name</th><th class="p-2">Phone</th><th class="p-2">Location</th><th class="p-2">Actions</th>
+              <th class="p-2">ID</th><th class="p-2">Name</th><th class="p-2">Phone</th><th class="p-2">Location</th><th class="p-2">Status</th><th class="p-2">Actions</th>
             </tr>
           </thead>
           <tbody id="clients-table-body"></tbody>
@@ -135,7 +135,7 @@
 
   </main>
 
-  <!-- Navigation Bar Footer -->
+  <!-- Bottom Navigation Bar -->
   <nav class="fixed bottom-4 left-4 right-4 bg-white border-4 border-black rounded-2xl p-2 flex justify-around shadow-2xl z-40">
     <button type="button" onclick="showView('view-dashboard')" class="flex flex-col items-center text-xs font-bold text-black hover:text-blue-600">
       <i class="fa-solid fa-chart-pie text-xl"></i>
@@ -159,74 +159,153 @@
     </button>
   </nav>
 
-  <!-- + ADD CLIENT MODAL -->
+  <!-- FULL 19-FIELD + ADD CLIENT MODAL -->
   <div id="modal-add-client" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-3xl p-6 border-4 border-black w-full max-w-2xl max-h-[90vh] overflow-y-auto space-y-4">
+    <div class="bg-white rounded-3xl p-6 border-4 border-black w-full max-w-4xl max-h-[90vh] overflow-y-auto space-y-4">
       <div class="flex justify-between items-center border-b-2 border-black pb-2">
-        <h2 class="text-2xl font-black text-blue-700">+ ADD CLIENT</h2>
+        <h2 class="text-2xl font-black text-blue-700">+ ADD CLIENT (19 Fields)</h2>
         <button type="button" onclick="closeModal('modal-add-client')" class="text-2xl font-bold">&times;</button>
       </div>
       <form id="form-add-client" onsubmit="submitForm(event, 'Clients')" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><label class="block font-bold">1. Date</label><input type="date" name="Date" required class="w-full border-2 border-black rounded p-2"></div>
+          <div><label class="block font-bold">2. Name</label><input type="text" name="Name" required class="w-full border-2 border-black rounded p-2"></div>
+          <div><label class="block font-bold">3. Phone</label><input type="text" name="Phone" required class="w-full border-2 border-black rounded p-2"></div>
+          <div><label class="block font-bold">4. Address</label><input type="text" name="Address" class="w-full border-2 border-black rounded p-2"></div>
+          
           <div>
-            <label class="block font-bold">Date</label>
-            <input type="date" name="Date" required class="w-full border-2 border-black rounded p-2">
+            <label class="block font-bold">5. Intended Use</label>
+            <select name="Intended Use" multiple class="w-full border-2 border-black rounded p-2 h-24">
+              <option value="RESIDENT">RESIDENT</option>
+              <option value="FARMHOUSE">FARMHOUSE</option>
+              <option value="SECOND HOME">SECOND HOME</option>
+              <option value="INVESTMENT">INVESTMENT</option>
+              <option value="HOUSING PROJECT">HOUSING PROJECT</option>
+              <option value="RESORT">RESORT</option>
+              <option value="HOMESTAY">HOMESTAY</option>
+              <option value="HOTEL">HOTEL</option>
+              <option value="RESTAURANT">RESTAURANT</option>
+              <option value="FACTORY">FACTORY</option>
+              <option value="FARMING">FARMING</option>
+              <option value="TEA PLANTATION">TEA PLANTATION</option>
+              <option value="POULTRY FARMING">POULTRY FARMING</option>
+              <option value="HATCHERY">HATCHERY</option>
+              <option value="AYURVEDA">AYURVEDA</option>
+              <option value="FISHERY">FISHERY</option>
+              <option value="SCHOOL">SCHOOL</option>
+              <option value="HOSPITAL">HOSPITAL</option>
+              <option value="ASHRAM">ASHRAM</option>
+              <option value="AGRICULTURE">AGRICULTURE</option>
+              <option value="OTHERS">OTHERS</option>
+            </select>
           </div>
+
           <div>
-            <label class="block font-bold">Client Name</label>
-            <input type="text" name="Name" placeholder="Full Name" required class="w-full border-2 border-black rounded p-2">
+            <label class="block font-bold">6. Specialty</label>
+            <select name="Specialty" multiple class="w-full border-2 border-black rounded p-2 h-24">
+              <option value="CORE HILL">CORE HILL</option>
+              <option value="HILL VIEW">HILL VIEW</option>
+              <option value="KJ VIEW">KJ VIEW</option>
+              <option value="RIVER SIDE">RIVER SIDE</option>
+              <option value="NH 17 SIDE">NH 17 SIDE</option>
+              <option value="NH 717 SIDE">NH 717 SIDE</option>
+              <option value="REMOTE AREA">REMOTE AREA</option>
+              <option value="BAZAR AREA">BAZAR AREA</option>
+              <option value="FOREST SIDE">FOREST SIDE</option>
+              <option value="DONBOSKO AREA">DONBOSKO AREA</option>
+              <option value="HIGH LAND">HIGH LAND</option>
+              <option value="UP & DOWN LAND">UP & DOWN LAND</option>
+              <option value="SWAMP LAND">SWAMP LAND</option>
+              <option value="PADDY FIELD">PADDY FIELD</option>
+              <option value="OTHERS">OTHERS</option>
+            </select>
           </div>
+
           <div>
-            <label class="block font-bold">Phone Number</label>
-            <input type="text" name="Phone" placeholder="+91..." required class="w-full border-2 border-black rounded p-2">
-          </div>
-          <div>
-            <label class="block font-bold">Address</label>
-            <input type="text" name="Address" placeholder="Full Address" class="w-full border-2 border-black rounded p-2">
-          </div>
-          <div>
-            <label class="block font-bold">Area Category</label>
+            <label class="block font-bold">7. Area Category</label>
             <select name="Area Category" class="w-full border-2 border-black rounded p-2">
               <option value="PLAIN AREA">PLAIN AREA</option>
               <option value="HILLS AREA">HILLS AREA</option>
               <option value="BOTH AREA">BOTH AREA</option>
             </select>
           </div>
+
           <div>
-            <label class="block font-bold">Owner Category</label>
+            <label class="block font-bold">8. Owner Category</label>
             <select name="Owner Category" class="w-full border-2 border-black rounded p-2">
               <option value="GENERAL">GENERAL</option>
               <option value="TRIBEL">TRIBEL</option>
               <option value="BOTH">BOTH</option>
             </select>
           </div>
+
           <div>
-            <label class="block font-bold">Location</label>
-            <select name="Location" class="w-full border-2 border-black rounded p-2">
+            <label class="block font-bold">9. Location</label>
+            <select name="Location" multiple class="w-full border-2 border-black rounded p-2 h-24">
+              <option value="NOT SPECIFIC">NOT SPECIFIC</option>
               <option value="OODLABARI">OODLABARI</option>
               <option value="DON BOSKO">DON BOSKO</option>
               <option value="TURIBARI">TURIBARI</option>
               <option value="MANABARI">MANABARI</option>
+              <option value="P DAMDIM">P DAMDIM</option>
               <option value="MALBAZAR">MALBAZAR</option>
+              <option value="BORODIGHI">BORODIGHI</option>
               <option value="CHALSHA">CHALSHA</option>
               <option value="MURTI">MURTI</option>
               <option value="LATAGURI">LATAGURI</option>
               <option value="KALIMPONG">KALIMPONG</option>
               <option value="DARJEELING">DARJEELING</option>
               <option value="SILIGURI">SILIGURI</option>
+              <option value="OTHERS">OTHERS</option>
             </select>
           </div>
+
+          <div><label class="block font-bold">10. Min Size</label><input type="number" name="Min Size" class="w-full border-2 border-black rounded p-2"></div>
+          <div><label class="block font-bold">11. Max Size</label><input type="number" name="Max Size" class="w-full border-2 border-black rounded p-2"></div>
+          
           <div>
-            <label class="block font-bold">Status</label>
+            <label class="block font-bold">12. Size Unit</label>
+            <select name="Size Unit" class="w-full border-2 border-black rounded p-2">
+              <option value="Decimal">Decimal</option>
+              <option value="Acre">Acre</option>
+              <option value="Katha">Katha</option>
+              <option value="Bigha">Bigha</option>
+            </select>
+          </div>
+
+          <div><label class="block font-bold">13. Min Budget</label><input type="number" name="Min Budget" class="w-full border-2 border-black rounded p-2"></div>
+          <div><label class="block font-bold">14. Max Budget</label><input type="number" name="Max Budget" class="w-full border-2 border-black rounded p-2"></div>
+
+          <div>
+            <label class="block font-bold">15. Budget Unit</label>
+            <select name="Budget Unit" class="w-full border-2 border-black rounded p-2">
+              <option value="Thousand">Thousand</option>
+              <option value="Lakh">Lakh</option>
+              <option value="Crore">Crore</option>
+            </select>
+          </div>
+
+          <div><label class="block font-bold">16. Next Follow Up</label><input type="date" name="Next Follow Up" class="w-full border-2 border-black rounded p-2"></div>
+
+          <div>
+            <label class="block font-bold">17. Status</label>
             <select name="Status" class="w-full border-2 border-black rounded p-2">
               <option value="New">New</option>
               <option value="Interested">Interested</option>
+              <option value="Not Interested">Not Interested</option>
+              <option value="Final">Final</option>
               <option value="Follow up">Follow up</option>
               <option value="Converted">Converted</option>
               <option value="Close Deal">Close Deal</option>
             </select>
           </div>
+
+          <div class="md:col-span-2">
+            <label class="block font-bold">18. Remarks</label>
+            <textarea name="Remarks" rows="2" class="w-full border-2 border-black rounded p-2"></textarea>
+          </div>
         </div>
+
         <div class="flex justify-end gap-3 pt-4 border-t-2 border-black">
           <button type="button" onclick="closeModal('modal-add-client')" class="px-5 py-2 border-2 border-black rounded-xl font-bold bg-gray-200">Cancel</button>
           <button type="submit" class="px-5 py-2 bg-blue-600 text-white border-2 border-black rounded-xl font-bold">Save Client</button>
@@ -236,7 +315,7 @@
   </div>
 
   <script>
-    // Replace with your Google Apps Script Web App URL from Step 1
+    // Paste your Web App URL here
     const API_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL";
     let db = { clients: [], properties: [], tasks: [] };
 
@@ -268,7 +347,7 @@
     function renderClients() {
       const tbody = document.getElementById('clients-table-body');
       if(!db.clients || db.clients.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No clients added yet.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No clients added yet.</td></tr>';
         return;
       }
       tbody.innerHTML = db.clients.map(c => `
@@ -277,6 +356,7 @@
           <td class="p-2 font-bold">${c.Name || ''}</td>
           <td class="p-2">${c.Phone || ''}</td>
           <td class="p-2">${c.Location || ''}</td>
+          <td class="p-2">${c.Status || ''}</td>
           <td class="p-2 space-x-1">
             <a href="tel:${c.Phone}" class="bg-blue-500 text-white px-2 py-1 rounded text-xs"><i class="fa-solid fa-phone"></i> Call</a>
             <a href="https://wa.me/${c.Phone}" target="_blank" class="bg-green-500 text-white px-2 py-1 rounded text-xs"><i class="fa-brands fa-whatsapp"></i> WA</a>
@@ -290,20 +370,21 @@
       document.getElementById(viewId).classList.remove('hidden');
     }
 
-    function openModal(id) {
-      document.getElementById(id).classList.remove('hidden');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
-    }
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
     async function submitForm(event, type) {
       event.preventDefault();
       const form = event.target;
       const formData = new FormData(form);
       const payload = {};
-      formData.forEach((value, key) => payload[key] = value);
+      formData.forEach((value, key) => {
+        if(payload[key]) {
+          payload[key] = payload[key] + ", " + value;
+        } else {
+          payload[key] = value;
+        }
+      });
 
       try {
         await fetch(API_URL, {
@@ -315,13 +396,11 @@
         form.reset();
         loadData();
       } catch(e) {
-        alert("Saved locally! Please verify Google Apps Script deployment.");
+        alert("Error saving data. Check Google Script URL.");
       }
     }
 
-    function runMatchmaker(type) {
-      alert(`Running Matchmaker algorithm matching ${type} criteria.`);
-    }
+    function runMatchmaker(type) { alert(`Running Matchmaker by ${type}`); }
 
     window.onload = loadData;
   </script>
