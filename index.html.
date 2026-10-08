@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soil & Shelter CRM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .header-yellow { background-color: #FFF000; }
+    .card-blue { background-color: #2196F3; }
+    .card-green { background-color: #4CAF50; }
+    .card-orange { background-color: #FF9800; }
+    .card-purple { background-color: #7E57C2; }
+    .btn-add-client { background-color: #B2EBF2; border: 3px solid #000; }
+    .btn-add-task { background-color: #F8BBD0; border: 3px solid #000; }
+    .btn-add-property { background-color: #AED581; border: 3px solid #000; }
+    .match-prop { background-color: #CDDC39; border: 3px solid #000; }
+    .match-client { background-color: #80DEEA; border: 3px solid #000; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 font-sans">
+
+  <!-- Header -->
+  <header class="header-yellow border-4 border-black rounded-3xl p-4 mb-6 shadow-md flex justify-between items-center">
+    <h1 class="text-xl md:text-2xl font-bold tracking-wide">BIKASH DEB ROY</h1>
+    <div class="text-center">
+      <h2 class="text-2xl md:text-3xl font-black">SOIL & SHELTER</h2>
+      <p class="italic text-sm font-semibold">your complete property consultant</p>
+    </div>
+    <h1 class="text-xl md:text-2xl font-bold tracking-wide">MD ANWAR HOSSAIN</h1>
+  </header>
+
+  <!-- Main View Router Container -->
+  <main id="app-view">
+
+    <!-- DASHBOARD VIEW -->
+    <div id="view-dashboard" class="space-y-6">
+      <!-- 4 Stat Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="card-blue text-white p-4 rounded-2xl shadow border-2 border-black">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-xs uppercase font-bold">Total Clients</p>
+              <h3 id="stat-clients" class="text-3xl font-black">0</h3>
+            </div>
+            <i class="fa-solid fa-users text-3xl"></i>
+          </div>
+        </div>
+        <div class="card-green text-white p-4 rounded-2xl shadow border-2 border-black">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-xs uppercase font-bold">Total Properties</p>
+              <h3 id="stat-properties" class="text-3xl font-black">0</h3>
+            </div>
+            <i class="fa-solid fa-house text-3xl"></i>
+          </div>
+        </div>
+        <div class="card-orange text-white p-4 rounded-2xl shadow border-2 border-black">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-xs uppercase font-bold">Total Task List</p>
+              <h3 id="stat-tasks" class="text-3xl font-black">0</h3>
+            </div>
+            <i class="fa-solid fa-list-check text-3xl"></i>
+          </div>
+        </div>
+        <div class="card-purple text-white p-4 rounded-2xl shadow border-2 border-black">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-xs uppercase font-bold">Follow-ups Due</p>
+              <h3 id="stat-followups" class="text-3xl font-black">0</h3>
+            </div>
+            <i class="fa-solid fa-calendar-days text-3xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Add Buttons -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <button onclick="openModal('modal-add-client')" class="btn-add-client p-6 rounded-3xl flex items-center justify-center space-x-4 shadow-lg hover:scale-105 transition">
+          <i class="fa-solid fa-user-plus text-4xl text-blue-600"></i>
+          <span class="text-2xl font-black">ADD CLIENTS</span>
+        </button>
+        <button onclick="openModal('modal-add-task')" class="btn-add-task p-6 rounded-3xl flex items-center justify-center space-x-4 shadow-lg hover:scale-105 transition">
+          <i class="fa-solid fa-file-circle-plus text-4xl text-pink-600"></i>
+          <span class="text-2xl font-black">ADD TASK</span>
+        </button>
+        <button onclick="openModal('modal-add-property')" class="btn-add-property p-6 rounded-3xl flex items-center justify-center space-x-4 shadow-lg hover:scale-105 transition">
+          <i class="fa-solid fa-house-medical text-4xl text-green-700"></i>
+          <span class="text-2xl font-black">ADD PROPERTY</span>
+        </button>
+      </div>
+
+      <!-- Matchmaker Buttons -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <button onclick="runMatchmaker('property')" class="match-prop p-4 rounded-2xl flex items-center justify-center space-x-3 text-lg font-black uppercase hover:opacity-90">
+          <i class="fa-solid fa-magnifying-glass text-xl"></i>
+          <span>MATCH MAKER BY PROPERTY</span>
+        </button>
+        <button onclick="runMatchmaker('client')" class="match-client p-4 rounded-2xl flex items-center justify-center space-x-3 text-lg font-black uppercase hover:opacity-90">
+          <i class="fa-solid fa-magnifying-glass text-xl"></i>
+          <span>MATCH MAKER BY CLIENT</span>
+        </button>
+      </div>
+
+      <!-- Today's Task List -->
+      <div class="border-4 border-black rounded-3xl p-6 bg-white flex flex-col md:flex-row items-center gap-6">
+        <div class="w-full md:w-1/4 text-center border-r-0 md:border-r-4 border-black pr-0 md:pr-4">
+          <h2 class="text-2xl font-black uppercase">TODAY'S</h2>
+          <h2 class="text-2xl font-black uppercase">TASK LIST</h2>
+        </div>
+        <div class="w-full md:w-3/4">
+          <ul id="todays-task-list" class="space-y-2 list-decimal list-inside font-semibold text-lg">
+            <li>Loading today's tasks...</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENTS LIST VIEW -->
+    <div id="view-clients" class="hidden bg-white p-6 rounded-3xl border-4 border-black space-y-4">
+      <h2 class="text-2xl font-bold">Client Directory</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-gray-200 border-b-2 border-black">
+              <th class="p-2">ID</th><th class="p-2">Name</th><th class="p-2">Phone</th><th class="p-2">Location</th><th class="p-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="clients-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Navigation Bar Footer -->
+  <nav class="fixed bottom-4 left-4 right-4 bg-white border-4 border-black rounded-2xl p-2 flex justify-around shadow-2xl z-50">
+    <button onclick="showView('view-dashboard')" class="flex flex-col items-center text-xs font-bold text-black hover:text-blue-600">
+      <i class="fa-solid fa-chart-pie text-xl"></i>
+      <span>DASHBOARD</span>
+    </button>
+    <button onclick="showView('view-clients')" class="flex flex-col items-center text-xs font-bold text-black hover:text-blue-600">
+      <i class="fa-solid fa-users text-xl"></i>
+      <span>Clients</span>
+    </button>
+    <button onclick="showView('view-properties')" class="flex flex-col items-center text-xs font-bold text-black hover:text-blue-600">
+      <i class="fa-solid fa-house text-xl"></i>
+      <span>Properties</span>
+    </button>
+    <button onclick="showView('view-tasks')" class="flex flex-col items-center text-xs font-bold text-black hover:text-blue-600">
+      <i class="fa-solid fa-list-check text-xl"></i>
+      <span>TASK</span>
+    </button>
+    <button onclick="showView('view-followups')" class="flex flex-col items-center text-xs font-bold text-black hover:text-blue-600">
+      <i class="fa-solid fa-calendar-days text-xl"></i>
+      <span>Follow-ups</span>
+    </button>
+  </nav>
+
+  <!-- Add Client Modal -->
+  <div id="modal-add-client" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl p-6 border-4 border-black w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <h2 class="text-2xl font-bold mb-4">+ ADD CLIENT</h2>
+      <form id="form-add-client" class="space-y-4">
+        <div><label class="block font-bold">Name</label><input type="text" name="Name" required class="w-full border-2 border-black rounded p-2"></div>
+        <div><label class="block font-bold">Phone (with Country Code)</label><input type="text" name="Phone" required class="w-full border-2 border-black rounded p-2"></div>
+        <div>
+          <label class="block font-bold">Location</label>
+          <select name="Location" class="w-full border-2 border-black rounded p-2">
+            <option value="OODLABARI">OODLABARI</option>
+            <option value="MALBAZAR">MALBAZAR</option>
+            <option value="SILIGURI">SILIGURI</option>
+            <option value="KALIMPONG">KALIMPONG</option>
+            <option value="DARJEELING">DARJEELING</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" onclick="closeModal('modal-add-client')" class="px-4 py-2 border-2 border-black rounded font-bold">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white border-2 border-black rounded font-bold">Save Client</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = https://script.google.com/macros/s/AKfycby0DObhfWmaaltVyv0RIk7hBj3uDy41PEnuMolScas0lQlD1_ej9cS4YKUK0F_jHCo4/exec;
+    let db = { clients: [], properties: [], tasks: [] };
+
+    // Fetch initial data on launch
+    async function loadData() {
+      try {
+        const res = await fetch(`${API_URL}?action=getData`);
+        db = await res.json();
+        updateDashboard();
+        renderClients();
+      } catch(e) {
+        console.log("Error loading data:", e);
+      }
+    }
+
+    function updateDashboard() {
+      document.getElementById('stat-clients').innerText = db.clients.length;
+      document.getElementById('stat-properties').innerText = db.properties.length;
+      document.getElementById('stat-tasks').innerText = db.tasks.length;
+      
+      const today = new Date().toISOString().split('T')[0];
+      const todayTasks = db.tasks.filter(t => t.Date === today || t.Status === 'Pending');
+      
+      const taskList = document.getElementById('todays-task-list');
+      taskList.innerHTML = todayTasks.length ? 
+        todayTasks.slice(0, 5).map(t => `<li>${t.Task} (${t.WhoAttend})</li>`).join('') :
+        '<li>No pending tasks for today!</li>';
+    }
+
+    function renderClients() {
+      const tbody = document.getElementById('clients-table-body');
+      tbody.innerHTML = db.clients.map(c => `
+        <tr class="border-b">
+          <td class="p-2">${c['Client ID']}</td>
+          <td class="p-2 font-bold">${c.Name}</td>
+          <td class="p-2">${c.Phone}</td>
+          <td class="p-2">${c.Location}</td>
+          <td class="p-2 space-x-1">
+            <a href="tel:${c.Phone}" class="bg-blue-500 text-white px-2 py-1 rounded text-xs"><i class="fa-solid fa-phone"></i> Call</a>
+            <a href="https://wa.me/${c.Phone}" target="_blank" class="bg-green-500 text-white px-2 py-1 rounded text-xs"><i class="fa-brands fa-whatsapp"></i> WA</a>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Navigation router
+    function showView(viewId) {
+      document.querySelectorAll('#app-view > div').forEach(el => el.classList.add('hidden'));
+      document.getElementById(viewId).classList.remove('hidden');
+    }
+
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    // Client Matchmaker Logic
+    function runMatchmaker(type) {
+      alert(`Running Matchmaker algorithm matching ${type} criteria across Intended Use, Specialty, Area Category, Location, and Budget range.`);
+    }
+
+    window.onload = loadData;
+  </script>
+</body>
+</html>
